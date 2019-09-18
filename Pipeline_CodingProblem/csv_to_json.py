@@ -2,6 +2,7 @@ import csv, json, os
 import argparse
 import logging
 
+# Create a log file for user message and errors with datetime
 log_format = "%(levelname)s %(asctime)s - %(message)s"
 logging.basicConfig(filename = "pipeline.log", level = logging.DEBUG, format = log_format, filemode = 'w')
 logger = logging.getLogger()
@@ -32,6 +33,7 @@ def csv_to_json(csvFile, jsonFile):
         with open(jsonFile, "w") as j:
             j.write(json.dumps(data, indent="\t"))
         logger.debug("# CSV file is complete converted to JSON file!")
+        print("Done!")
     except Exception as e:
         logging.exception(e)
 
@@ -48,13 +50,13 @@ def main():
     try:
         if os.path.splitext(args.csvFile)[1] != '.csv':
             logger.error('# Input file has to be a csv file! e,g test.csv ')
-            raise FileNotFoundError
+            raise
         if os.path.splitext(args.jsonFile)[1] != '.json':
             logger.error('# Output file has to be a json file! e,g test.json')
-            raise FileExistsError
+            raise
         else:
             csv_to_json(args.csvFile, args.jsonFile)
-    except (FileExistsError, FileNotFoundError) as e:
+    except Exception as e:
         logging.exception(e)
         raise
 
