@@ -1,0 +1,13 @@
+- Goal: calculate average elevation for segments or clips from the digital
+  elevation model geotif
+    (https://en.wikipedia.org/wiki/Digital_elevation_model)
+- Use shapefile features to divide the tif (hint: using the tif's projection)
+- Generate output csv with average elevation for each feature in the
+  shapefile, labeled by the 'prism_id' metadata column in the shapefile
+- Apply "defensive coding" practices to make the solution as robust as
+  possible to common data errors
+- Suggested libraries: geopandas rasterio
+- Submit your code in a public github repository or equivalent
+- EXTRA CREDIT: bundle scripts into a docker container that reads from input files mounted
+  at '/data/' and writes csv to '/data/average_elevations.csv'.
+
