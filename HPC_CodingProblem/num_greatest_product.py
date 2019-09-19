@@ -1,18 +1,22 @@
 from functools import reduce
+
 import argparse
 
 
 def num_greatest_product(nums, digit):
     """
+    Find the adjacent digit number in the 1000-digit number which have the greatest product.
     :param nums: 1000 digit number
     :param digit: an integer less than 1000
     :return: a list with eight adjacent digit with greatest product and an integer with this greatest product
     """
-    # Convert each eight adjacent digit number into a list of integers
+    assert 0 < digit <= 1000 and type(digit) == int, 'Digit parameter must be an integer between 1 and 1000'
     digits = len(nums)
+    assert digits == 1000, 'The input number must be a 1000-digit number'
     max_product = 0
     num_max_product = []
     k = 0
+    # Convert each adjacent digit number into a list of integers
     num_digit = [int(d) for d in nums]
     while k < digits-digit:
         # Choose eight adjacent digit number as a list
@@ -26,24 +30,45 @@ def num_greatest_product(nums, digit):
             max_product = product
             num_max_product = assigned_digits_num
         k += 1
+    if max_product == 0:
+        num_max_product = num_digit[:digit]
     return 'The {} adjacent digits which have the greatest product are {}' \
            ' and the greatest product is {}'.format(digit, num_max_product, max_product)
 
-
-def main():
-    parser = argparse.ArgumentParser(description="Find the adjacent digits in the 1000 digit number")
-    parser.add_argument('-number', metavar='', help="1000 digit number", type=str, required=True)
-    parser.add_argument('-digit', metavar='', help="Adjacent digit",  type=int, required=True)
-    args = parser.parse_args()
-    print(num_greatest_product(args.number, args.digit))
+# def main():
+#     parser = argparse.ArgumentParser(description="Find the adjacent digits in the 1000 digit number")
+#     parser.add_argument('-number', metavar='', help="1000 digit number", type=str, required=True)
+#     parser.add_argument('-digit', metavar='', help="Adjacent digit",  type=int, required=True)
+#     args = parser.parse_args()
+#     print(num_greatest_product(args.number, args.digit))
 
 
 if __name__ == '__main__':
-    main()
+    # main()
 
-nums = '3766581235885941622054540050228447514162777869412307699482907769113268717216818322831603491835999456015306915009196661427591452909871214219792485776087253286386945942663949956280302377388971714236415605168862773550156548824873689737766284562457836197902674997734737908387650371844408009421100914050765521827781655182806129058522352838472989652688571683680665438395803243794489830567998343203397981373552644309879795957322883020671901669290704497751685870539575543632177623725028726840870016429503564354896057020404025619555440159796686935523081354355119387766201895202371147907112778884969266539280935452003712638970422340890791962244529017494651550289995762505866212386393472458374741386036991340760970327022447106502711257671708182087831698677130077927731626466195021513131952322762659409302452718743061757527857578831917621650745174966732316231446870605534431568974878576006012026939455247174486040603096495646182217557200423380237313587369836078574982810508277521659834594761360129982400036745363'
+    nums = '37665812358859416220545400502284475141627778694123' \
+           '07699482907769113268717216818322831603491835999456' \
+           '01530691500919666142759145290987121421979248577608' \
+           '72532863869459426639499562803023773889717142364156' \
+           '05168862773550156548824873689737766284562457836197' \
+           '90267499773473790838765037184440800942110091405076' \
+           '55218277816551828061290585223528384729896526885716' \
+           '83680665438395803243794489830567998343203397981373' \
+           '55264430987979595732288302067190166929070449775168' \
+           '58705395755436321776237250287268408700164295035643' \
+           '54896057020404025619555440159796686935523081354355' \
+           '11938776620189520237114790711277888496926653928093' \
+           '54520037126389704223408907919622445290174946515502' \
+           '89995762505866212386393472458374741386036991340760' \
+           '97032702244710650271125767170818208783169867713007' \
+           '79277316264661950215131319523227626594093024527187' \
+           '43061757527857578831917621650745174966732316231446' \
+           '87060553443156897487857600601202693945524717448604' \
+           '06030964956461822175572004233802373135873698360785' \
+           '74982810508277521659834594761360129982400036745363'
 
-#print(num_greatest_product(nums, 6))
+    print(num_greatest_product(nums, 4))
+    print(num_greatest_product(nums, 8))
 
 
 
