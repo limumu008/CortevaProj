@@ -62,8 +62,11 @@ _id = sp.PRISM_ID
 
 # Write average elevation along with PRISM_ID into a csv file
 with open('average_elevation.csv', "w") as csvFile:
+    # Create a csv writer obj
     csvWriter = csv.writer(csvFile)
+    # Write the fields
     csvWriter.writerow(['PRISM_ID', 'AVERAGE_ELEVATION'])
+    # Write the data rows
     for key in _id.keys():
         csvWriter.writerow([_id[key], aver_ele[key]])
 
