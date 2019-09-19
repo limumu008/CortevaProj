@@ -10,7 +10,7 @@ Reproject the tif file as WGS84 projection
 """
 
 src_img = 'eleven.tif'
-dst_img = 'new_eleven.tif'
+dst_img = 'new_' + src_img
 
 # Set to WGS84 projection
 dst_crs = {'init': 'epsg:4326'}
@@ -49,6 +49,7 @@ with rasterio.open(src_img) as src_ds:
                 resampling=Resampling.average)
 
             dst_ds.write(dst_array, i)
+            print('Good! New tif file has been written.')
 
 # Calculate average elevation
 zs = zonal_stats('eleven.shp', 'new_eleven.tif', stats='mean')
@@ -60,15 +61,19 @@ sp = gpd.read_file('eleven.shp')
 # Find PRISM_ID from shape file
 _id = sp.PRISM_ID
 
-# Write average elevation along with PRISM_ID into a csv file
-with open('average_elevation.csv', "w") as csvFile:
-    # Create a csv writer obj
-    csvWriter = csv.writer(csvFile)
-    # Write the fields
-    csvWriter.writerow(['PRISM_ID', 'AVERAGE_ELEVATION'])
-    # Write the data rows
-    for key in _id.keys():
-        csvWriter.writerow([_id[key], aver_ele[key]])
+try:
+    # Write average elevation along with PRISM_ID into a csv file
+    with open('average_elevation.csv', "w") as csvFile:
+        # Create a csv writer obj
+        csvWriter = csv.writer(csvFile)
+        # Write the fields
+        csvWriter.writerow(['PRISM_ID', 'AVERAGE_ELEVATION'])
+        # Write the data rows
+        for key in _id.keys():
+            csvWriter.writerow([_id[key], aver_ele[key]])
+    print('Perfect! A csv file with average elevation has been created.')
+except Exception as e:
+    print(e)
 
 # Reference:
 # 1. https://rasterio.readthedocs.io/en/stable/topics/reproject.html
