@@ -67,4 +67,6 @@ with open('average_elevation.csv', "w") as csvFile:
     for key in _id.keys():
         csvWriter.writerow([_id[key], aver_ele[key]])
 
-# Reference: https://rasterio.readthedocs.io/en/stable/topics/reproject.html
+# Reference:
+# 1. https://rasterio.readthedocs.io/en/stable/topics/reproject.html
+# 2. https://pythonhosted.org/rasterstats/manual.html#zonal-statistics
